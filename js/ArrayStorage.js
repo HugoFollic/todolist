@@ -12,21 +12,27 @@ class ArrayStorage {
     
     // Method to retrieve a table of values or create one by default
     get() {
-
+        if (!localStorage.getItem(this.name)) {
+            localStorage.setItem(this.name, '[]')
+        }
+        return JSON.parse(localStorage.getItem(this.name))
     }
 
     // Method to add a value to the table
-    set() {
-
+    set(value) {
+        this.list.push(value)
+        localStorage.setItem(this.name, JSON.stringify(this.list))
     }
 
     // Method to remove a value from the table
     remove(value) {
-
+        const index = this.list.indexOf(value)
+        this.list.splice(index, 1)
+        localStorage.setItem(this.name, JSON.stringify(this.list))
     }
 
     // Method for clearing the whole array
     clear() {
-
+        localStorage.removeItem(this.name)
     }
 }
